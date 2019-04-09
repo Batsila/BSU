@@ -1,0 +1,701 @@
+body {
+    margin: 48px 50px 0px 50px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*//////////////header////////////////////*/
+header {
+    position: fixed;
+    top: 0;
+    background-color: #bababa;
+    width: 1300px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+header li.logo {
+    float: left;
+}
+
+header li.status{
+    float: right;
+    cursor: pointer;
+}
+
+header li.logo a {
+    display: block;
+    color: #232323;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+header li.status a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+header li.status a:hover:not(.active) {
+    background-color: #357aff;
+}
+
+header li.status.active {
+    background-color: #357aff;
+}
+
+
+/*//////////////main////////////////////*/
+main {
+    width: 1300px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+article {
+    margin: 15px 5px 15px 5px;
+    border-right: solid #232323 2px;
+    border-left: solid #232323 2px;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+article div.content {
+    height: auto;
+    width: 1050px;
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+article button {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: none;
+    color: #232323;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+article button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+article button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+article button:hover span {
+    padding-right: 25px;
+}
+
+article button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+
+/*//////////////filter////////////////////*/
+aside {
+    flex: 1;
+    margin: 15px 10px 0 0;
+    border-top: solid #232323 2px;
+    border-left: solid #232323 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+aside p{
+    color: #232323;
+    align-self: center;
+}
+
+aside div.filter {
+    margin: 0 0 20px 20px;
+    padding-bottom: 20px;
+    border-right: solid #232323 2px;
+    border-bottom: solid #232323 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+aside div.filter button {
+    background-color: #357aff;
+    width: 120px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    margin: 4px 2px;
+    opacity: 1;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+aside div.filter button:hover {
+    opacity: 0.6;
+}
+
+aside div.filter div.author {
+    cursor: pointer;
+    display: flex;
+}
+
+aside div.filter div.author button {
+    width: 10px;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
+    color: #232323;
+}
+
+aside div.filter div.tag {
+    cursor: pointer;
+    display: flex;
+}
+
+aside div.filter div.tag button {
+    width: 10px;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffff;
+    color: #232323;
+}
+
+aside div.filter input {
+    width: 100px;
+    border: solid #232323 2px;
+    color: #232323;
+    padding: 7px 2px;
+    text-align: left;
+    margin: 4px 2px;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+aside div.filter input:hover {
+    background-color: #357aff;
+    color: white;
+    border: solid #357aff 2px;
+    opacity: 0.6;
+}
+
+aside div.filter input:focus {
+    background-color: #357aff;
+    border: solid #357aff 2px;
+    color: white;
+    opacity: 0.6;
+}
+
+aside div.tags {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+aside div.tags span {
+    background-color: #357aff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 3px;
+}
+
+aside div.tags span:hover {
+    opacity: 0.6;
+}
+
+aside div.authors {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+aside div.authors span {
+    background-color: #357aff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 3px;
+}
+
+aside div.authors span:hover {
+    opacity: 0.6;
+}
+
+/*//////////////post////////////////////*/
+figure {
+    margin: 30px;
+    height: 445px;
+    width: 330px;
+    border-top: solid #232323 2px;
+    border-left: solid #232323 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+figure div.post {
+    margin: 20px;
+    height: 280px;
+    width: 280px;
+    border-bottom: solid #232323 2px;
+    border-right: solid #232323 2px;
+}
+
+figure div.img-tools {
+    display: flex;
+    flex-direction: row;
+}
+
+div.post img.postImg {
+    border-radius: 5px;
+    height: 250px;
+    width: 250px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+div.post img.postImg:hover {
+    box-shadow: 0 0 2px 1px #357aff;
+}
+
+figure div.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+figure div.info div.likes {
+    margin: 3px;
+    cursor: pointer;
+    -moz-user-select: none;
+}
+
+figure div.info div.likes span:hover {
+    color: #357aff;
+}
+
+figure div.info div.likes .fa-heart {
+    color: #232323;
+}
+
+figure div.info div.likes .active {
+    color: red;
+}
+
+figure div.info div.author {
+    margin: 5px 15px 5px 5px;
+}
+
+figure div.description {
+    margin: 0 10px 0 10px;
+}
+
+figure div.tags {
+    margin: 0 10px 0 10px;
+
+}
+
+figure div.tags a {
+    cursor: pointer;
+    margin-left: 5px;
+    color: #357aff;
+}
+
+figure div.tags a:hover {
+    color: #232323;
+}
+
+figure div.tools {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3px;
+}
+
+figure div.tools button {
+    margin: 0;
+    padding: 0;
+}
+
+figure div.tools button:hover {
+    color: #357aff;
+}
+
+/*modal*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #232323;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes zoom {
+    from {transform: scale(0.1)}
+    to {transform: scale(1)}
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*//////////////footer////////////////////*/
+footer {
+    padding: 2px;
+    width: 1300px;
+    background-color: #ffffff;
+    color: #232323;
+    text-align: center;
+}
+
+div.shield {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: start;
+    justify-content: flex-end;
+    opacity: 0.9;
+}
+
+div.shield form {
+    display: flex;
+    align-items: center;
+    width: 140px;
+    height: 130px;
+    margin-top: 55px;
+    margin-right: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: #232323 solid 2px;
+}
+
+div.shield form input{
+    width: 100px;
+    border: solid #232323 2px;
+    color: #232323;
+    padding: 7px 2px;
+    text-align: left;
+    margin: 4px 2px;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+div.shield form div.tools {
+    display: flex;
+}
+
+div.shield form div.tools button {
+    background-color: #357aff;
+    width: 50px;
+    border: none;
+    color: white;
+    padding: 6px 2px;
+    margin: 2px;
+    text-align: center;
+    opacity: 1;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+div.shield form div.tools button:hover {
+    background-color: #232323;
+    width: 50px;
+    border: none;
+    color: white;
+    padding: 6px 2px;
+    margin: 2px;
+    text-align: center;
+    opacity: 1;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+div.shield div.confirm-dialog {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+    margin-top: 220px;
+    margin-right: 460px;
+    padding: 5px;
+    border-radius: 5px;
+    flex-direction: column;
+    background-color: #ff1f15;
+    border: #232323 solid 2px;
+}
+
+div.shield div.confirm-dialog div.tools {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+div.shield div.confirm-dialog button {
+    background-color: #232323;
+    width: 100px;
+    border: none;
+    color: #ffffff;
+    padding: 6px 2px;
+    margin: 2px;
+    text-align: center;
+    opacity: 1;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+div.shield div.confirm-dialog button:hover {
+    background-color: #ffffff;
+    width: 100px;
+    border: none;
+    color: #232323;
+    padding: 6px 2px;
+    margin: 2px;
+    text-align: center;
+    opacity: 1;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+div.shield div.new-post {
+    display: flex;
+    align-items: center;
+    width: 320px;
+    height: 410px;
+    margin-top: 75px;
+    margin-right: 420px;
+    padding: 5px;
+    border-radius: 5px;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: #232323 solid 2px;
+}
+
+div.shield div.new-post textarea {
+    width: 280px;
+    height: 200px;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    border-bottom: solid #232323 2px;
+    border-left: solid #232323 2px;
+    border-top: 0;
+    border-right: 0;
+    background-color: #f8f8f8;
+    font-size: 13px;
+    resize: none;
+    margin: 5px;
+}
+
+div.shield div.new-post input {
+    width: 280px;
+    height: 30px;
+    padding: 2px 4px;
+    border-bottom: solid #232323 2px;
+    border-right: solid #232323 2px;
+    border-top: 0;
+    border-left: 0;
+    margin: 7px;
+}
+
+div.shield div.new-post div.photo {
+    height: 250px;
+    width: 250px;
+    margin: 5px;
+    border-bottom: solid #232323 2px;
+    border-right: solid #232323 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.shield div.new-post div.photo img {
+    border-radius: 5px;
+    height: 200px;
+    width: 200px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: none;
+    margin: 5px;
+}
+
+div.shield div.new-post div.photo img:hover {
+    box-shadow: 0 0 2px 1px #357aff;
+}
+
+div.shield div.new-post div.file-upload {
+    position: relative;
+    overflow: hidden;
+    width: 120px;
+    height: 20px;
+    background: #357aff;
+    border-radius: 3px;
+    padding: 8px 4px;
+    color: #fff;
+    text-align: center;
+}
+
+div.shield div.new-post div.file-upload:hover {
+    background: #232323;
+}
+
+div.shield div.new-post div.file-upload input[type="file"]{
+    display: none;
+}
+
+div.shield div.new-post div.file-upload label {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+div.shield div.new-post div.file-upload span {
+    line-height: 36px;
+}
+
+div.shield div.new-post div.tools {
+    display: flex;
+}
+
+div.shield div.new-post div.tools button {
+    background-color: #357aff;
+    width: 120px;
+    border: none;
+    color: white;
+    padding: 6px 2px;
+    margin: 5px;
+    text-align: center;
+    opacity: 1;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+div.shield div.new-post div.tools button:hover {
+    background-color: #232323;
+    width: 120px;
+    border: none;
+    color: white;
+    padding: 6px 2px;
+    margin: 5px;
+    text-align: center;
+    opacity: 1;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+}

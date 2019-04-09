@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FotoGram</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="animation.js"></script>
+    <script src="module.js"></script>
+    <script src="logics.js"></script>
+    <link rel="shortcut icon" href="images/icon.gif" type="image/gif"/>
+</head>
+<body>
+    <header>
+        <ul id = "status"></ul>
+    </header>
+    <main>
+        <aside>
+            <p>Filter<i class="fas fa-filter"></i></p>
+            <div class = "filter">
+                <button id = "recent">Recent</button>
+                <button id = "popular">Popular</button>
+                <div class = "author">
+                    <input id = "author-input" type="text" placeholder="Author..."/>
+                    <button id = "add-author-button"><i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class = "tag">
+                    <input id = "tag-input" list="tags" type="text" placeholder="Hashtag..."/>
+                    <datalist id="tags">
+                        <option value="tag"></option>
+                        <option value="sometag"></option>
+                        <option value="taggy"></option>
+                    </datalist>
+                    <button id = "add-tag-button"><i class="fas fa-plus-circle"></i></button>
+                </div>
+                <div class = "authors" id = "filter-authors">
+                </div>
+                <div class = "tags" id = "filter-tags">
+                </div>
+            </div>
+        </aside>
+        <article>
+            <div id="testModal" class="modal">
+                <span class="close">×</span>
+                <img class="modal-content" id="testModalImg"/>
+                <div id="caption"></div>
+            </div>
+            <div class = "content" id = "content">
+            </div>
+            <button id = "load-more"><span>Load More</span></button>
+        </article>
+    </main>
+    <footer>
+        <i class="far fa-copyright"></i>2018 FotoGram Inc.
+    </footer>
+</body>
+</html>
