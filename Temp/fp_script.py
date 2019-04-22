@@ -2,22 +2,21 @@ import os
 import glob
 import pandas as pd
 import numpy as np
-from rdkit.Chem import AllChem as Chem
+from rdkit.Chem import MACCSkeys
+from rdkit import Chem
 from operator import itemgetter
 from tqdm import tqdm
 
-def smi2fp(filepath):
-    sf = Chem.SmilesMolSupplier(filepath, titleLine=False)
-
-    fp_bytes = list(Chem.GetMACCSKeysFingerprint(sf[0]))
+def smi2fp(smi):
+    m = Chem.MolFromSmiles(smi)
+    fp = MACCSkeys.GenMACCSKeys(m)
     
     fp_str = ''
 
-    for fp_byte in fp_bytes:
+    for fp_byte in fp:
         fp_str += str(fp_byte)
     
     return fp_str
-
 
 energies = []
 fps = []
@@ -28,8 +27,13 @@ for fouldername in tqdm(os.listdir(os.getcwd())):
     if len(files) is 0:
         continue
     filepath = files[0]
-    fp = smi2fp(filepath)
-
+    smi_file = open(filepath, 'r')
+    smi = smi_file.read()
+    smi_file.close()
+    try:
+        fp = smi2fp(smi)
+    except:
+        continue
     files = glob.glob(os.path.join(os.getcwd(), fouldername, '*energy.txt'))
     if len(files) is 0:
         continue
