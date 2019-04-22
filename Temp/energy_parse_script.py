@@ -1,9 +1,10 @@
 import os
 import glob
+from tqdm import tqdm
 
 count = 0
 
-for fouldername in os.listdir(os.getcwd()):
+for fouldername in tqdm(os.listdir(os.getcwd())):
     files = glob.glob(os.path.join(os.getcwd(), fouldername, '*.pdbqt'))
     if len(files) is 0:
         continue
@@ -20,8 +21,6 @@ for fouldername in os.listdir(os.getcwd()):
     energy_file.close()
 
     count += 1
-    
-    print(fouldername + ' DONE')
 
 print('Process is finished. \nFiles ' + str(count) + ' \nPress ENTER to exit...')
 input()

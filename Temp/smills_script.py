@@ -1,15 +1,20 @@
 import os
 import glob
 import time
+from tqdm import tqdm
 
 count = 0
 
-for fouldername in os.listdir(os.getcwd()):
+for fouldername in tqdm(os.listdir(os.getcwd())):
     files = glob.glob(os.path.join(os.getcwd(), fouldername, '*.pdbqt'))
     if len(files) is 0:
         continue
     filepath = files[0]
 
+    files = glob.glob(os.path.join(os.getcwd(), fouldername, '*.smi'))
+    if len(files) > 0:
+        continue
+        
     command = 'babel ' + filepath + ' ' + filepath.replace('.pdbqt', '.smi')
     os.popen(command)
 
@@ -35,7 +40,6 @@ for fouldername in os.listdir(os.getcwd()):
     smi_file.write(smills)
     smi_file.close()
     count += 1
-    print(fouldername + ' DONE')
 
 print('Process is finished. \nFiles ' + str(count) + ' \nPress ENTER to exit...')
 input()
