@@ -10,16 +10,13 @@ from tqdm import tqdm
 def smi2fp(smi):
     m = Chem.MolFromSmiles(smi)
     fp = MACCSkeys.GenMACCSKeys(m)
-    
-    fp_str = ''
+    fp_array = []
+    for byte in fp:
+        fp_array.append(byte)
+    fp_array = fp_array[1:]
+    return fp_array
 
-    for fp_byte in fp:
-        fp_str += str(fp_byte)
-    
-    return fp_str
-
-energies = []
-fps = []
+data = []
 count = 0
 
 for fouldername in tqdm(os.listdir(os.getcwd())):
@@ -42,11 +39,17 @@ for fouldername in tqdm(os.listdir(os.getcwd())):
     energy = energy_file.read()
     energy_file.close()
 
-    fps.append(fp)
-    energies.append(energy)
+    row = []
+    row.append(energy)
+    for byte in fp:
+        row.append(byte)
+    data.append(row)
+    
 
-data = {'energy': energies, 'fingerprints': fps}
 df = pd.DataFrame(data=data)
-
-df.to_csv('energy_and_fp.csv', index=False, header=False)
-print('Process is finished.\nRows added ' + str(len(data['energy'])))
+headers = []
+headers.append('energy')
+for i in range(1, 167):
+    headers.append(i)
+df.to_csv('energy_and_fp.csv', index=False, header=headers)
+print('Process is finished.\nRows added ' + str(len(data)))
