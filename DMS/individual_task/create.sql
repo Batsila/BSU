@@ -33,7 +33,8 @@ CREATE TABLE horses (
 
 CREATE TABLE competitions (
 	id int NOT NULL PRIMARY KEY IDENTITY(1,1),
-	date date NOT NULL CHECK (date < GETDATE() and date > '2000-01-01'),
+	date DATE NOT NULL CHECK (date < GETDATE() and date > '2000-01-01'),
+	time time NOT NULL,
 	address varchar(max) NOT NULL,
 	name varchar(max) NULL,
 	races int NOT NULL CHECK (races between 1 and 42)
