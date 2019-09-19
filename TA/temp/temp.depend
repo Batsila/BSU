@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1524342050 source:c:\users\batsi\desktop\ta\temp\main.cpp
+	<iostream>
+	<fstream>
+	<queue>
+	<algorithm>
+	<climits>
+	<map>
+	<iterator>
+	<string.h>
+	<vector>
+

@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1517848203 source:c:\users\batsi\desktop\ta\0\main.cpp
+	<iostream>
+	<fstream>
+	<set>
+	<algorithm>
+

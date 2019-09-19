@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1521619000 source:c:\users\batsi\desktop\ta\qwer\main.cpp
+	<iostream>
+	<fstream>
+	<algorithm>
+	<set>
+	<iomanip>
+
+1521661127 source:c:\users\batsi\desktop\ta\40(ds)\main.cpp
+	<iostream>
+	<fstream>
+	<iomanip>
+	<set>
+	<algorithm>
+
