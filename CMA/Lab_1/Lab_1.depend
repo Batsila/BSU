@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1509014060 source:c:\users\batsi\desktop\cma\lab_1\main.cpp
+	<vector>
+	<iostream>
+	<algorithm>
+	<iomanip>
+	<cmath>
+	<time.h>
+

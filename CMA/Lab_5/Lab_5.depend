@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1512930428 source:c:\users\batsi\desktop\cma\lab_5\main.cpp
+	<iostream>
+	<ctime>
+	<cstdio>
+	<cstdlib>
+	<iomanip>
+	<fstream>
+

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1513180618 source:c:\users\batsi\desktop\cma\lab_7\main.cpp
+	<iostream>
+	<math.h>
+	<algorithm>
+
