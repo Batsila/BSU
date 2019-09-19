@@ -1,4 +1,4 @@
-﻿namespace Lab1
+﻿namespace Lab2
 {
     /// <summary>
     /// MacLaren–Marsaglia generator for base random variable 
