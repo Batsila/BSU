@@ -1,0 +1,16 @@
+dat=read.table("data.txt")
+plot(dat,type="p", main="", xlab="X", ylab="Y")
+cl<-kmeans(dat,2)
+table(cl$cluster)
+cl$centers
+plot(dat,col = ifelse(cl$cluster==1,"blue","green"))
+legend("bottomleft",legend=c("1","2"),fill=c("blue","green"))
+plot(dat,pch=ifelse(cl$cluster==1,1,2))
+legend("bottomleft",legend=c("1","2"),pch=c(1,2))
+cl1<-kmeans(dat,3)
+table(cl1$cluster)
+cl1$centers
+plot(dat,col=ifelse(cl1$cluster==1,"blue", ifelse(cl1$cluster==2, "green", "red")))
+legend("bottomleft",legend=c("1", "2", "3"),fill=c("blue","green", "red"))
+plot(dat,pch=ifelse(cl1$cluster==1,1, ifelse(cl1$cluster==2, 2, 3)))
+legend("bottomleft",legend=c("1", "2", "3"), pch=c(1,2,3))
