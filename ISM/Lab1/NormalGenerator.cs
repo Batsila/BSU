@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Meta.Numerics.Functions;
+using System;
 
 namespace Lab1
 {
@@ -15,7 +12,7 @@ namespace Lab1
         private double _expectation;
         private MGenerator _mGenerator;
 
-        public NormalGenerator(double expectation, double standardDeviation, long seed = 65539)
+        public NormalGenerator(double expectation, double standardDeviation, int seed = 65539)
         {
             _mGenerator = new MGenerator(seed);
             _expectation = expectation;
@@ -26,7 +23,8 @@ namespace Lab1
         {
             var baseVariable = _mGenerator.NextRand();
 
-            return _expectation + _standardDeviation * Math.Sqrt(2) * Meta.Numerics.Functions.AdvancedMath.Erf(2 * baseVariable - 1);
+            return _expectation + _standardDeviation * Math.Sqrt(2) 
+                * AdvancedMath.InverseErf(2 * baseVariable - 1);
         }
     }
 }

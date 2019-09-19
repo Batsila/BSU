@@ -15,7 +15,7 @@ namespace Lab1
         private double _beta;
         private double _m;
 
-        public MGenerator(long seed = 65539)
+        public MGenerator(int seed = 65539)
         {
             _alpha = seed;
             _beta = 65539;

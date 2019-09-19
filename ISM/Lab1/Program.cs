@@ -12,7 +12,7 @@ namespace Lab1
         static double ConductExperiment(int a, int b, double expectation, double standardDeviation, int n = 1000)
         {
             var errors = 0;
-            var generator = new NormalGenerator(expectation, standardDeviation, DateTime.Now.Ticks);
+            var generator = new NormalGenerator(expectation, standardDeviation);
 
             for (int i = 0; i < n; ++i)
             {
@@ -24,15 +24,23 @@ namespace Lab1
             return (double)errors / n;
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
             int a = 57;
             int b = 63;
-            double expectation = (a + b) / 2;
+            var deviations = new List<int> { 1, 2, 3 };
 
-            var p = ConductExperiment(a, b, expectation, 1);
+            foreach (var deviation in deviations)
+            {
+                Console.WriteLine($"Standard deviation {deviation}: {ConductExperiment(a, b, (a + b) / 2, deviation)}");
+            }
 
-            Console.WriteLine(p);
+            var expectations = new List<int> { 58, 65 };
+
+            foreach (var expectation in expectations)
+            {
+                Console.WriteLine($"Expectation {expectation}: {ConductExperiment(a, b, expectation, 1)}");
+            }
 
             Console.ReadKey();
         }
