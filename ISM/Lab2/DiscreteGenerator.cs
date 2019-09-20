@@ -24,7 +24,7 @@ namespace Lab2
             B = b;
             C = c;
             Ap = ap;
-            Bp = bp;
+            Bp = bp + ap;
         }
 
         public double NextRand()
