@@ -1,5 +1,6 @@
 DROP FUNCTION dbo.CHECK_HORSE_OWNER;
 DROP FUNCTION dbo.CHECK_HORSE_JOCKEY;
+DROP FUNCTION dbo.CHECK_RESULT_PLACE;
 
 CREATE FUNCTION [CHECK_HORSE_OWNER] 
 (
@@ -51,3 +52,18 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION [CHECK_RESULT_PLACE] 
+(
+	@competition_id int,
+	@place int
+)
+RETURNS bit
+AS
+BEGIN
+	if Exists (select * from dbo.results where place = @place and competition_id = @competition_id)
+	begin
+		return 0
+	end
+	return 1
+END
+GO

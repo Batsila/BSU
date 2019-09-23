@@ -34,7 +34,7 @@ CREATE TABLE horses (
 	jockey_id int FOREIGN KEY REFERENCES jockeys(id) NOT NULL,
 	contract_termination_date date NOT NULL,
 	constraint CHECK_OWNER check (dbo.[CHECK_HORSE_OWNER](id, owner_id) = 1),
-	constraint CHECK_JOCKEY check (dbo.[CHECK_HORSE_JOCKEY](id, jockey_id, contract_termination_date) = 1),
+	constraint CHECK_JOCKEY check (dbo.[CHECK_HORSE_JOCKEY](id, jockey_id, contract_termination_date) = 1)
 );
 
 CREATE TABLE competitions (
@@ -50,6 +50,7 @@ CREATE TABLE results (
 	place int NOT NULL CHECK(place > 0),
 	horse_id int FOREIGN KEY REFERENCES horses(id) NOT NULL,
 	competition_id int FOREIGN KEY REFERENCES competitions(id) NOT NULL,
-	PRIMARY KEY (horse_id, competition_id)
+	PRIMARY KEY (horse_id, competition_id),
+	unique(place, competition_id)
 );
 	
