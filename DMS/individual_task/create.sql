@@ -1,3 +1,7 @@
+ALTER TABLE horses
+DROP CONSTRAINT CHECK_OWNER; 
+ALTER TABLE horses
+DROP CONSTRAINT CHECK_JOCKEY; 
 DROP TABLE results;
 DROP TABLE horses;
 DROP TABLE competitions;
@@ -28,7 +32,9 @@ CREATE TABLE horses (
 	gender varchar(8) CHECK (gender IN ('mare', 'stallion')),
 	owner_id int FOREIGN KEY REFERENCES owners(id) NOT NULL,
 	jockey_id int FOREIGN KEY REFERENCES jockeys(id) NOT NULL,
-	contract_termination_date date NOT NULL
+	contract_termination_date date NOT NULL,
+	constraint CHECK_OWNER check (dbo.[CHECK_HORSE_OWNER](id, owner_id) = 1),
+	constraint CHECK_JOCKEY check (dbo.[CHECK_HORSE_JOCKEY](id, jockey_id, contract_termination_date) = 1),
 );
 
 CREATE TABLE competitions (

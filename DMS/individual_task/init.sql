@@ -19,11 +19,11 @@ INSERT INTO dbo.jockeys VALUES ('Ayyub', 'Mills', 21, 'Harahan 4126 Rose Avenue'
 INSERT INTO dbo.jockeys VALUES ('Nathanial', 'Curry', 33, 'Knoxville 3551 Corbin Branch Road', 190, 90);
 
 /*Init horses*/
-INSERT INTO dbo.horses VALUES ('Rocket', 4, 'mare', 1, 1, '2019-09-09');
+INSERT INTO dbo.horses VALUES ('Rocket', 4, 'mare', 1, 1, '2019-10-09');
 INSERT INTO dbo.horses VALUES ('Friday', 3, 'stallion', 2, 2, '2020-09-09');
-INSERT INTO dbo.horses VALUES ('Basia', 7, 'mare', 2, 3, '2019-07-09');
-INSERT INTO dbo.horses VALUES ('Lucky', 9, 'stallion', 3, 1, '2019-09-19');
-INSERT INTO dbo.horses VALUES ('Bob', 3, 'stallion', 4, 4, '2020-09-09');
+INSERT INTO dbo.horses VALUES ('Basia', 7, 'mare', 2, 3, '2019-10-09');
+INSERT INTO dbo.horses VALUES ('Lucky', 9, 'stallion', 3, 1, '2019-10-19');
+INSERT INTO dbo.horses VALUES ('Bob', 3, 'stallion', 4, 4, '2020-10-09');
 
 /*Init competitions*/
 INSERT INTO dbo.competitions VALUES ('2019-08-07', '13:30', 'Minsk', 'Supercup', 4);
@@ -40,7 +40,6 @@ INSERT INTO dbo.results VALUES (3, 3, 1);
 INSERT INTO dbo.results VALUES (4, 4, 1);
 INSERT INTO dbo.results VALUES (5, 5, 1);
 INSERT INTO dbo.results VALUES (1, 5, 2);
-INSERT INTO dbo.results VALUES (2, 5, 2);
 INSERT INTO dbo.results VALUES (3, 3, 2);
 INSERT INTO dbo.results VALUES (4, 2, 2);
 INSERT INTO dbo.results VALUES (5, 1, 2);
