@@ -27,7 +27,7 @@ CREATE TABLE jockeys (
 
 CREATE TABLE horses (
 	id int NOT NULL PRIMARY KEY IDENTITY(1,1),
-	name varchar(50) NOT NULL,
+	name varchar(50) NOT NULL unique,
 	age int NOT NULL CHECK (age between 0 and 45),
 	gender varchar(8) CHECK (gender IN ('mare', 'stallion')),
 	owner_id int FOREIGN KEY REFERENCES owners(id) NOT NULL,

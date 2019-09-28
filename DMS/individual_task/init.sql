@@ -22,10 +22,10 @@ INSERT INTO dbo.jockeys VALUES ('Nathanial', 'Curry', 33, 'Knoxville 3551 Corbin
 
 /*Init horses*/
 INSERT INTO dbo.horses VALUES ('Rocket', 4, 'mare', 1, 1, '2019-10-09');
-INSERT INTO dbo.horses VALUES ('Friday', 3, 'stallion', 2, 2, '2020-09-09');
+INSERT INTO dbo.horses VALUES ('Friday', 6, 'stallion', 2, 2, '2020-09-09');
 INSERT INTO dbo.horses VALUES ('Basia', 7, 'mare', 2, 3, '2019-10-09');
 INSERT INTO dbo.horses VALUES ('Lucky', 9, 'stallion', 3, 1, '2019-10-19');
-INSERT INTO dbo.horses VALUES ('Bob', 3, 'stallion', 4, 4, '2020-10-09');
+INSERT INTO dbo.horses VALUES ('Bob', 5, 'stallion', 4, 4, '2020-10-09');
 INSERT INTO dbo.horses VALUES ('MadMax', 10, 'mare', 4, 4, '2020-10-09');
 INSERT INTO dbo.horses VALUES ('Ruchejok', 7, 'stallion', 5, 4, '2020-10-09');
 INSERT INTO dbo.horses VALUES ('Mary', 3, 'mare', 6, 5, '2020-10-09');
@@ -33,6 +33,10 @@ INSERT INTO dbo.horses VALUES ('Stallion', 7, 'stallion', 7, 6, '2020-10-09');
 INSERT INTO dbo.horses VALUES ('Mare', 11, 'mare', 8, 1, '2020-10-09');
 INSERT INTO dbo.horses VALUES ('Jim', 13, 'stallion', 9, 2, '2020-10-09');
 INSERT INTO dbo.horses VALUES ('Davie', 8, 'stallion', 10, 3, '2020-10-09');
+INSERT INTO dbo.horses VALUES ('Sten', 8, 'stallion', 4, 1, '2020-10-09');
+INSERT INTO dbo.horses VALUES ('Bastinda', 8, 'mare', 4, 2, '2020-10-09');
+INSERT INTO dbo.horses VALUES ('Vivien', 8, 'stallion', 2, 4, '2020-10-09');
+INSERT INTO dbo.horses VALUES ('Kliacha', 8, 'mare', 2, 5, '2020-10-09');
 
 
 /*Init competitions*/
