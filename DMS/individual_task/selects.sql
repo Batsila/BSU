@@ -1,7 +1,7 @@
 --Info about jockey by horse name
 select dbo.jockeys.* from dbo.horses 
 	inner join dbo.jockeys on horses.jockey_id = dbo.jockeys.id
-		where horses.name = 'Vivien';
+		where (horses.name = 'Vivien');
 
 --Info about owners how have more than 3 horses
 select * from dbo.owners 

@@ -6,12 +6,13 @@
 #include <math.h>
 #include <ctime>
 #include <fstream>
+#include <iostream>
 
-int BLOCK_SIZE[6] = { 1, 10, 25, 50, 100, 250 };
+int BLOCK_SIZE[11] = { 2, 5, 10, 20, 25, 50, 100, 125, 250, 500, 750 };
 
 double** create_matrix(int size, bool empty = false)
 {
-	double** matrix = new double* [size];
+	double** matrix = new double*[size];
 
 	for (int i = 0; i < size; ++i)
 	{
@@ -121,7 +122,9 @@ void test(int matrix_size, std::string file_name)
 	stream << "1," << sequential_time << ","
 		<< first_parallel_time << "," << second_parallel_time << std::endl;
 
-	for (int i = 1; i < 6; ++i)
+	std::cout << "Block size 1 - Done" << std::endl;
+
+	for (int i = 0; i < 11; ++i)
 	{
 		sequential_time =
 			block_multiplication(matrix1, matrix2, matrix_size, BLOCK_SIZE[i], 0);
@@ -132,6 +135,8 @@ void test(int matrix_size, std::string file_name)
 
 		stream << BLOCK_SIZE[i] << "," << sequential_time << ","
 			<< first_parallel_time << "," << second_parallel_time << std::endl;
+
+		std::cout << "Block size " << BLOCK_SIZE[i] << " - Done" << std::endl;
 	}
 
 	stream.close();
@@ -145,7 +150,8 @@ int main()
 	omp_set_dynamic(0);
 	omp_set_num_threads(8);
 
-	test(500, "test_500.csv");
+	test(1500, "test_1500.csv");
 
+	system("pause");
 	return 0;
 }
