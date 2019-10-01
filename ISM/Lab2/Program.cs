@@ -23,7 +23,7 @@ namespace Lab2
                 var i1 = uniformGenerator.NextRand();
                 var i2 = trapezoidalGenerator.NextRand();
                 var s = P * Math.Pow(1 + i1 / 100, N1) * Math.Pow(1 + i2 / 100, N2);
-                var h = 3.0;
+                var h = 2.6;
                 var ksi = 0.0;
                 var j = 1.0;
                 for (int it2 = 0; it2 < 16; ++it2)
