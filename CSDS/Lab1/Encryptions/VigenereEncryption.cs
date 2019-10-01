@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab1
+namespace Lab1.Encryptions
 {
     /// <summary>
     /// The class that implements Vigenere encryption 
     /// </summary>
-    public class VigenereEncryption
+    public class VigenereEncryption : IEncryption
     {
-        public const string ENG_ALPHABET = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
-        public const string RUS_ALPHABET = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-
         private readonly string _alphabet;
 
-        public VigenereEncryption(string alphabet = ENG_ALPHABET)
+        public VigenereEncryption(string alphabet)
         {
+            if (string.IsNullOrEmpty(alphabet))
+                throw new Exception("Missing argument.");
+
             _alphabet = alphabet;
         }
 
@@ -27,14 +27,15 @@ namespace Lab1
 
         private string DoVigenereCipher(string text, string key, bool isEncrypt)
         {
-            var gamma = RepeatKey(key, text.Length);
+            if (text == null || key == null)
+                throw new Exception("Missing argument.");
 
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < text.Length; ++i)
             {
-                var textIndex = _alphabet.IndexOf(text[i]);
-                var gammaIndex = _alphabet.IndexOf(gamma[i]);
+                var textIndex = _alphabet.IndexOf(char.ToUpper(text[i]));
+                var keyIndex = _alphabet.IndexOf(char.ToUpper(key[i % key.Length]));
 
                 if (textIndex < 0)
                 {
@@ -42,21 +43,12 @@ namespace Lab1
                 }
                 else
                 {
-                    var index = (_alphabet.Length + textIndex + gammaIndex * 
-                        (isEncrypt ? 1 : -1)) % _alphabet.Length;
-                    sb.Append(_alphabet[index]);
+                    var index = (_alphabet.Length + textIndex +  
+                        (isEncrypt ? keyIndex : -keyIndex)) % _alphabet.Length;
+                    sb.Append(char.IsLower(text[i]) ? 
+                        char.ToLower(_alphabet[index]) : _alphabet[index]);
                 }
             }
-
-            return sb.ToString();
-        }
-
-        private string RepeatKey(string key, int length)
-        {
-            StringBuilder sb = new StringBuilder(key);
-
-            while (sb.Length < length)
-                sb.Append(key);
 
             return sb.ToString();
         }

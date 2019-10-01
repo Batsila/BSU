@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lab1.Encryptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,16 @@ namespace Lab1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var ve = new VigenereEncryption();
+            IEncryption ve = new VigenereEncryption(Alphabet.Eng);
 
-            var enTest = ve.Encrypt("Small test text", "Key");
+            var test = ve.Encrypt(Text.Test, "mouse");
 
-            Console.WriteLine(enTest);
+            var vb = new VigenereBreaker(Alphabet.Eng, AlphabetFrequency.Eng);
 
-            var deTest = ve.Decrypt(enTest, "Key");
+            var t = vb.KasiskiTest(test);
 
-            Console.WriteLine(deTest);
             Console.ReadKey();
         }
     }
