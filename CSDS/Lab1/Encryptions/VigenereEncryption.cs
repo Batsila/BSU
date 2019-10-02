@@ -27,7 +27,7 @@ namespace Lab1.Encryptions
 
         private string DoVigenereCipher(string text, string key, bool isEncrypt)
         {
-            if (text == null || key == null)
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(key))
                 throw new Exception("Missing argument.");
 
             StringBuilder sb = new StringBuilder();

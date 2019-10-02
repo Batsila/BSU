@@ -13,11 +13,14 @@ namespace Lab1
         {
             IEncryption ve = new VigenereEncryption(Alphabet.Eng);
 
-            var test = ve.Encrypt(Text.Test, "mouse");
+            var key = "testkey";
+            var encryptedText = ve.Encrypt(Text.Test, key);
 
-            var vb = new VigenereBreaker(Alphabet.Eng, AlphabetFrequency.Eng);
+            var vigenereBreaker = new VigenereBreaker(Alphabet.Eng, AlphabetFrequency.Eng);
 
-            var t = vb.KasiskiTest(test);
+            var guess = vigenereBreaker.KasiskiTest(encryptedText);
+
+            Console.WriteLine($"Key: {key}\nLength: {key.Length}\nGuess: {guess}");
 
             Console.ReadKey();
         }

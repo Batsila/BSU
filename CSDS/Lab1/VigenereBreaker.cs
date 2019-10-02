@@ -23,13 +23,38 @@ namespace Lab1
             _frequencies = frequencies;
         }
 
-        public IEnumerable<int> KasiskiTest(string text)
+        public int KasiskiTest(string text)
         {
             var distances = GetDistances(text);
-            return new List<int>();
+
+            var dividers = GetDividers(distances);
+
+            dividers.Remove(1);
+
+            return dividers.OrderByDescending(x => x.Value).First().Key;
         }
 
-        private IEnumerable<int> GetDistances(string text)
+        private Dictionary<int, int> GetDividers(List<int> distances)
+        {
+            var dividers = new Dictionary<int, int>();
+
+            for (int i = 0; i < distances.Count - 1; ++i)
+            {
+                for (int j = i + 1; j < distances.Count; ++j)
+                {
+                    var divider = GCD(distances[i], distances[j]);
+
+                    if (dividers.ContainsKey(divider))
+                        dividers[divider] += 1;
+                    else
+                        dividers.Add(divider, 1);
+                }
+            }
+
+            return dividers;
+        }
+
+        private List<int> GetDistances(string text)
         {
             var distances = new List<int>();
 
@@ -54,6 +79,16 @@ namespace Lab1
             }
 
             return distances;
+        }
+
+        private int GCD(IEnumerable<int> numbers)
+        {
+            return numbers.Aggregate(GCD);
+        }
+
+        private int GCD(int a, int b)
+        {
+            return b == 0 ? a : GCD(b, a % b);
         }
     }
 }

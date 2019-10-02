@@ -46,7 +46,6 @@
     <Compile Include="Encryptions\CaesarEncryption.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Encryptions\IEncryption.cs" />
-    <Compile Include="Helper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Encryptions\VigenereEncryption.cs" />

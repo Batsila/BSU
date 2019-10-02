@@ -24,7 +24,7 @@ namespace Lab1.Encryptions
 
         private string DoCaesarCipher(string text, string key, bool isEncrypt)
         {
-            if (text == null || key == null)
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(key))
                 throw new Exception("Missing argument.");
 
             if (key.Length != 1)
