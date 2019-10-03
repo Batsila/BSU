@@ -8,7 +8,7 @@ namespace Lab1
         static double ConductExperiment(int a, int b, double expectation, double standardDeviation, int n = 1000)
         {
             var errors = 0;
-            var generator = new NormalGenerator(expectation, standardDeviation);
+            var generator = new NormalGenerator(expectation, standardDeviation, DateTime.Now.Millisecond * 1000);
 
             for (int i = 0; i < n; ++i)
             {

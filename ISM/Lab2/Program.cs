@@ -12,9 +12,9 @@ namespace Lab2
 
         static List<double> ConductExperiment()
         {
-            var uniformGenerator = new UniformGenerator(9, 10.2);
-            var trapezoidalGenerator = new TrapezoidalGenerator(8, 12, 9, 10);
-            var discreteGenerator = new DiscreteGenerator(-0.1, 0.1, 0, 0.1, 0.2);
+            var uniformGenerator = new UniformGenerator(9, 10.2, DateTime.Now.Millisecond * 1000);
+            var trapezoidalGenerator = new TrapezoidalGenerator(8, 12, 9, 10, DateTime.Now.Millisecond * 1000);
+            var discreteGenerator = new DiscreteGenerator(-0.1, 0.1, 0, 0.1, 0.2, DateTime.Now.Millisecond * 1000);
 
             var res = new List<double>();
 

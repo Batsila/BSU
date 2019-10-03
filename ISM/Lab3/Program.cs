@@ -21,7 +21,7 @@ namespace Lab3
 
         static double DoMontecarlo(Func func, int samples = 10000)
         {
-            var uniformGenerator = new UniformGenerator(A, B);
+            var uniformGenerator = new UniformGenerator(A, B, DateTime.Now.Millisecond * 1000);
             var ans = 0.0;
 
             for (int i = 0; i < samples; ++i)
