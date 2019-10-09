@@ -44,15 +44,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Encryptions\CaesarEncryption.cs" />
-    <Compile Include="Consts.cs" />
+    <Compile Include="Helpers\Consts.cs" />
     <Compile Include="Encryptions\IEncryption.cs" />
+    <Compile Include="Helpers\KeyGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Encryptions\VigenereEncryption.cs" />
+    <Compile Include="Helpers\TextGenerator.cs" />
     <Compile Include="VigenereBreaker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Text.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

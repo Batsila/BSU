@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab1
 {
@@ -30,6 +29,9 @@ namespace Lab1
         public string BreakCipher(string text)
         {
             var lengths = KasiskiTest(text);
+
+            if (!lengths.Any())
+                return string.Empty;
 
             var res = new List<KeyValuePair<string, double>>();
 
@@ -194,7 +196,8 @@ namespace Lab1
                 {
                     if (text.Substring(i, subLength) == text.Substring(j, subLength))
                     {
-                        while (text.Substring(i, subLength + 1) == text.Substring(j, subLength + 1))
+                        while (i + 1 < text.Length - subLength && j + 1 < text.Length - subLength &&
+                            text.Substring(i, subLength + 1) == text.Substring(j, subLength + 1))
                             ++subLength;
                         distances.Add(new KeyValuePair<int, int>(j - i, subLength));
 
