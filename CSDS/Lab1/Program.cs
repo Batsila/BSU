@@ -18,7 +18,7 @@ namespace Lab1
 
             var vigenereBreaker = new VigenereBreaker(Alphabet.Eng, AlphabetFrequency.Eng);
 
-            var guess = vigenereBreaker.KasiskiTest(encryptedText);
+            var guess = vigenereBreaker.BreakCipher(encryptedText);
 
             Console.WriteLine($"Key: {key}\nLength: {key.Length}\nGuess: {guess}");
 
