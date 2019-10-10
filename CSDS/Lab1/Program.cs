@@ -7,7 +7,7 @@ namespace Lab1
 {
     class Program
     {
-        static readonly int N = 100;
+        static readonly int N = 1000;
         static readonly int[] TEXT_LENGTHS = { 250, 500, 1000, 2000 };
         static readonly int[] KEY_LENGTHS = { 4, 8, 12, 16, 20 };
         static TextGenerator _textGenerator;
@@ -41,14 +41,13 @@ namespace Lab1
             streamWriter.WriteLine("KeyLength;TextLength;Probability");
             foreach (var keyLength in KEY_LENGTHS)
             {
-                var key = _keyGenerator.GetKey(keyLength);
-
                 for (int i = 250; i <= 3000; i += 250)
                 {
                     var correct = 0.0;
 
                     for (int j = 0; j < N; ++j)
                     {
+                        var key = _keyGenerator.GetKey(keyLength);
                         var text = _textGenerator.GetText(i);
 
                         var encryptedText = _vigenereEncryption.Encrypt(text, key);
@@ -59,6 +58,7 @@ namespace Lab1
                     }
 
                     streamWriter.WriteLine($"{keyLength};{i};{correct / N}");
+                    Console.WriteLine($"{keyLength};{i};{correct / N}");
                 }
 
             }
@@ -69,14 +69,13 @@ namespace Lab1
             streamWriter.WriteLine("TextLength;KeyLength;Probability");
             foreach (var textLength in TEXT_LENGTHS)
             {
-                var text = _textGenerator.GetText(textLength);
-
                 for (int i = 1; i <= 20; ++i)
                 {
                     var correct = 0.0;
 
                     for (int j = 0; j < N; ++j)
                     {
+                        var text = _textGenerator.GetText(textLength);
                         var key = _keyGenerator.GetKey(i);
 
                         var encryptedText = _vigenereEncryption.Encrypt(text, key);
@@ -87,6 +86,7 @@ namespace Lab1
                     }
 
                     streamWriter.WriteLine($"{textLength};{i};{correct / N}");
+                    Console.WriteLine($"{textLength};{i};{correct / N}");
                 }
 
             }
