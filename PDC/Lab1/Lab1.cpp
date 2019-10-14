@@ -7,8 +7,10 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
-int BLOCK_SIZE[11] = { 2, 5, 10, 20, 25, 50, 100, 125, 250, 500, 750 };
+std::vector<int> BLOCK_SIZES_1500 = { 2, 5, 10, 20, 25, 50, 100, 125, 250, 500, 750 };
+std::vector<int> BLOCK_SIZES_500 = { 2, 5, 10, 20, 25, 50, 100, 125, 250 };
 
 double** create_matrix(int size, bool empty = false)
 {
@@ -39,11 +41,11 @@ void delete_matrix(double** matrix, int size)
 	delete[] matrix;
 }
 
-int linear_multiplication(double** matrix1, double** matrix2, int matrix_size, int parallel_num)
+double linear_multiplication(double** matrix1, double** matrix2, int matrix_size, int parallel_num)
 {
 	double** res = create_matrix(matrix_size, true);
 
-	int start_time = clock();
+	double start_time = omp_get_wtime();
 
 #pragma omp parallel for if (parallel_num == 1)
 	for (int i = 0; i < matrix_size; ++i)
@@ -58,14 +60,14 @@ int linear_multiplication(double** matrix1, double** matrix2, int matrix_size, i
 		}
 	}
 
-	int finish_time = clock();
+	double finish_time = omp_get_wtime();
 
 	delete_matrix(res, matrix_size);
 
 	return finish_time - start_time;
 }
 
-int block_multiplication(double** matrix1, double** matrix2, int matrix_size, int block_size, int parallel_num)
+double block_multiplication(double** matrix1, double** matrix2, int matrix_size, int block_size, int parallel_num)
 {
 	if (matrix_size % block_size != 0)
 	{
@@ -74,7 +76,7 @@ int block_multiplication(double** matrix1, double** matrix2, int matrix_size, in
 
 	double** res = create_matrix(matrix_size, true);
 
-	int start_time = clock();
+	double start_time = omp_get_wtime();
 
 #pragma omp parallel for if (parallel_num == 1)
 	for (int i = 0; i < matrix_size; i += block_size)
@@ -95,14 +97,14 @@ int block_multiplication(double** matrix1, double** matrix2, int matrix_size, in
 		}
 	}
 
-	int finish_time = clock();
+	double finish_time = omp_get_wtime();
 
 	delete_matrix(res, matrix_size);
 
 	return finish_time - start_time;
 }
 
-void test(int matrix_size, std::string file_name)
+void test(int matrix_size, std::string file_name, std::vector<int> block_sizes)
 {
 	std::ofstream stream;
 	stream.open(file_name);
@@ -112,11 +114,11 @@ void test(int matrix_size, std::string file_name)
 	double** matrix1 = create_matrix(matrix_size);
 	double** matrix2 = create_matrix(matrix_size);
 
-	int sequential_time =
+	double sequential_time =
 		linear_multiplication(matrix1, matrix2, matrix_size, 0);
-	int first_parallel_time =
+	double first_parallel_time =
 		linear_multiplication(matrix1, matrix2, matrix_size, 1);
-	int second_parallel_time =
+	double second_parallel_time =
 		linear_multiplication(matrix1, matrix2, matrix_size, 2);
 
 	stream << "1," << sequential_time << ","
@@ -124,19 +126,19 @@ void test(int matrix_size, std::string file_name)
 
 	std::cout << "Block size 1 - Done" << std::endl;
 
-	for (int i = 0; i < 11; ++i)
+	for (int block_size : block_sizes)
 	{
 		sequential_time =
-			block_multiplication(matrix1, matrix2, matrix_size, BLOCK_SIZE[i], 0);
+			block_multiplication(matrix1, matrix2, matrix_size, block_size, 0);
 		first_parallel_time =
-			block_multiplication(matrix1, matrix2, matrix_size, BLOCK_SIZE[i], 1);
+			block_multiplication(matrix1, matrix2, matrix_size, block_size, 1);
 		second_parallel_time =
-			block_multiplication(matrix1, matrix2, matrix_size, BLOCK_SIZE[i], 2);
+			block_multiplication(matrix1, matrix2, matrix_size, block_size, 2);
 
-		stream << BLOCK_SIZE[i] << "," << sequential_time << ","
+		stream << block_size << "," << sequential_time << ","
 			<< first_parallel_time << "," << second_parallel_time << std::endl;
 
-		std::cout << "Block size " << BLOCK_SIZE[i] << " - Done" << std::endl;
+		std::cout << "Block size " << block_size << " - Done" << std::endl;
 	}
 
 	stream.close();
@@ -150,7 +152,7 @@ int main()
 	omp_set_dynamic(0);
 	omp_set_num_threads(8);
 
-	test(1500, "test_1500.csv");
+	test(500, "test_500.csv", BLOCK_SIZES_500);
 
 	system("pause");
 	return 0;
