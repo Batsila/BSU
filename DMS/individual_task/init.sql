@@ -44,6 +44,7 @@ INSERT INTO dbo.competitions VALUES ('2019-08-07', '13:30', 'Minsk', 'Minsk', 4)
 INSERT INTO dbo.competitions VALUES ('2019-06-05', '8:30', 'Brest', 'Brest race', 4);
 INSERT INTO dbo.competitions VALUES ('2019-07-13', '19:30', 'Bobruisk', 'Bobruisk super cup', 4);
 INSERT INTO dbo.competitions VALUES ('2019-05-23', '12:15', 'Vilnus', 'Vilnus open cup', 4);
+INSERT INTO dbo.competitions VALUES ('2019-10-10', '12:42', 'Kopische', 'NB cup', 42);
 
 
 /*Init results*/
