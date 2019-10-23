@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Lab2.Server.Models
+namespace Lab2.Common.Models
 {
     public class AuthRequest
     {

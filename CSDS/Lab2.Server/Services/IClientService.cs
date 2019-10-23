@@ -1,4 +1,4 @@
-﻿using Lab2.Server.Models;
+﻿using Lab2.Common.Models;
 
 namespace Lab2.Server.Services
 {

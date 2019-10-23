@@ -1,4 +1,4 @@
-﻿using Lab2.Server.Models;
+﻿using Lab2.Common.Models;
 using Lab2.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

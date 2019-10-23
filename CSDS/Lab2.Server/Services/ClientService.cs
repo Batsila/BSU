@@ -1,6 +1,6 @@
-﻿using Lab2.Server.Entities;
+﻿using Lab2.Common.Models;
+using Lab2.Server.Entities;
 using Lab2.Server.Helpers;
-using Lab2.Server.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
