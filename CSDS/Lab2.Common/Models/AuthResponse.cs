@@ -7,5 +7,7 @@
         public string Token { get; set; }
 
         public byte[] EncryptedSessionKey { get; set; }
+
+        public byte[] EncryptedSessionIV { get; set; }
     }
 }

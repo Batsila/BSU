@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 
 namespace Lab2.Server.Services
@@ -25,9 +26,12 @@ namespace Lab2.Server.Services
 
         private readonly AppSettings _appSettings;
 
+        public List<(string, byte[], byte[])> SessionData { get; set; }
+
         public AuthService(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
+            SessionData = new List<(string, byte[], byte[])>();
         }
 
         public AuthSessionResponse CreateAuthSession(AuthSessionRequest authSessionRequest)
@@ -85,21 +89,37 @@ namespace Lab2.Server.Services
             if (user == null)
                 return null;
 
-            var token = CreateToken(user);
-            byte[] encryptedKey;
+            byte[] sessionKey;
+            byte[] sessionIV;
+
+            using (AesCryptoServiceProvider Aes = new AesCryptoServiceProvider())
+            {
+                sessionKey = Aes.Key;
+                sessionIV = Aes.IV;
+            }
+
+            SessionData.RemoveAll(x => x.Item1 == user.Login);
+            var session = (user.Login, sessionKey, sessionIV);
+            SessionData.Add(session);
+
+            byte[] encryptedSessionKey;
+            byte[] encryptedSessionIV;
 
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
-                var testKey = "ThatIsTestKey";
                 RSA.ImportParameters(authRequest.ClientPublicRSAParameters.ToRSAParameters());
-                encryptedKey = RSA.Encrypt(Encoding.Default.GetBytes(testKey), false);
+                encryptedSessionKey = RSA.Encrypt(sessionKey, false);
+                encryptedSessionIV = RSA.Encrypt(sessionIV, false);
             }
+
+            var token = CreateToken(user);
 
             var authResponse = new AuthResponse
             {
                 Login = user.Login,
                 Token = token,
-                EncryptedSessionKey = encryptedKey
+                EncryptedSessionKey = encryptedSessionKey,
+                EncryptedSessionIV = encryptedSessionIV
             };
 
             _authSessions.Remove(authSession);
@@ -111,9 +131,11 @@ namespace Lab2.Server.Services
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.TokenKey);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(
+                new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Login)
                 }),

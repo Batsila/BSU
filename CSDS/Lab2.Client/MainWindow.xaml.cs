@@ -1,5 +1,6 @@
 ﻿using Lab2.Common.Helpers;
 using Lab2.Common.Models;
+using Lab2.Common.Security;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,8 @@ namespace Lab2.Client
     {
         private readonly HttpClient _client;
         private string _token;
-        private string _sessionKey;
+        private byte[] _sessionKey;
+        private byte[] _sessionIV;
 
         public MainWindow()
         {
@@ -104,12 +106,48 @@ namespace Lab2.Client
 
                 _token = authResponse.Token;
 
-                var keyBytes = RSA.Decrypt(authResponse.EncryptedSessionKey, false);
-                _sessionKey = Encoding.Default.GetString(keyBytes);
+                _sessionKey = RSA.Decrypt(authResponse.EncryptedSessionKey, false);
+                _sessionIV = RSA.Decrypt(authResponse.EncryptedSessionIV, false);
 
                 AuthStatus.Text = "authorized";
                 AuthStatus.Foreground = new SolidColorBrush(Colors.Green);
             }
+        }
+
+        private void BtnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_token))
+            {
+                MessageBox.Show("Not Authorized");
+                return;
+            }
+
+            var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri($"http://localhost:5000/api/content"),
+                Method = HttpMethod.Get,
+            };
+            request.Headers.Add("Authorization", $"Bearer {_token}");
+
+            HttpResponseMessage response = _client.SendAsync(request).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                EncryptedText.Text = string.Empty;
+                DecryptedText.Text = string.Empty;
+                MessageBox.Show("Can not get content");
+                return;
+            }
+
+            var contentResponse = JsonConvert.DeserializeObject<ContentResponse>(response.Content.ReadAsStringAsync().Result);
+
+            var encryptedText = Encoding.Default.GetString(contentResponse.EncryptedText);
+
+            EncryptedText.Text = encryptedText;
+
+            var decryptedText = AES.DecryptStringFromBytes_Aes(contentResponse.EncryptedText, _sessionKey, _sessionIV);
+
+            DecryptedText.Text = decryptedText;
         }
     }
 }

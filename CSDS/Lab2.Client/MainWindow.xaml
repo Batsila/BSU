@@ -8,8 +8,8 @@
         Title="Lab2.Client" Height="450" Width="400" ResizeMode="NoResize" FontFamily="Gill Sans MT" WindowStyle="SingleBorderWindow">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal" Height="100" Margin="10,10,10,5" Background="#007241">
-                <StackPanel Margin="10,10,5,10" Width="160" Orientation="Vertical" Background="White">
+            <StackPanel Orientation="Horizontal" Height="100" Margin="10,10,10,5" Background="#007241" HorizontalAlignment="Stretch">
+                <StackPanel Margin="10" Width="160" Orientation="Vertical" Background="White">
                     <TextBox Margin="5" Background="#218359" Foreground="White" Text="TestLogin" x:Name="TxtLogin" />
                     <TextBox Margin="5" Background="#218359" Foreground="White" Text="TestPassword" x:Name="TxtPassword" />
                     <StackPanel Margin="5" Orientation="Horizontal">
@@ -21,12 +21,18 @@
                     
                 </StackPanel>
                 
+                <StackPanel Margin="10" Width="160" Orientation="Vertical" Background="White">
+                    <Button Margin="5" Foreground="White" Background="#218359" x:Name="BtnLoad" Click="BtnLoad_Click">Load Content</Button>
+                </StackPanel>
+                
             </StackPanel>
 
 
             <StackPanel Margin="10,5,10,10" Orientation="Vertical" HorizontalAlignment="Stretch" Background="#218359">
-                <TextBlock Margin="5" HorizontalAlignment="Center" FontSize="14" Foreground="White">Secret Text</TextBlock>
-                <TextBlock Margin="5" Height="250" Background="White" Foreground="#007241" x:Name="SecretText"/>
+                <TextBlock Margin="5" HorizontalAlignment="Center" FontSize="14" Foreground="White">Encrypted Text</TextBlock>
+                <TextBlock Margin="5" Height="100" Background="White" Foreground="#007241" x:Name="EncryptedText"/>
+                <TextBlock Margin="5" HorizontalAlignment="Center" FontSize="14" Foreground="White">Decrypted Text</TextBlock>
+                <TextBlock Margin="5" Height="100" Background="White" Foreground="#007241" x:Name="DecryptedText"/>
             </StackPanel>
 
         </StackPanel>
