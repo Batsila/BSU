@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 
 namespace Lab2.Common.Models
 {
@@ -8,6 +9,9 @@ namespace Lab2.Common.Models
         public string Login { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public byte[] EncryptedPassword { get; set; }
+
+        [Required]
+        public PublicRSAParameters ClientPublicRSAParameters { get; set; }
     }
 }

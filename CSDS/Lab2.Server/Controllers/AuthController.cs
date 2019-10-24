@@ -9,17 +9,17 @@ namespace Lab2.Server.Controllers
     [Route("api/")]
     public class AuthController : Controller
     {
-        private IClientService _clientService;
+        private readonly IAuthService _authService;
 
-        public AuthController(IClientService clientService)
+        public AuthController(IAuthService authService)
         {
-            _clientService = clientService;
+            _authService = authService;
         }
 
-        [HttpPost("auth")]
-        public IActionResult Auth([FromBody]AuthRequest authRequests)
+        [HttpPost("session")]
+        public IActionResult CreateAuthSession([FromBody]AuthSessionRequest authSessionRequest)
         {
-            var response = _clientService.Authenticate(authRequests);
+            var response = _authService.CreateAuthSession(authSessionRequest);
 
             if (response == null)
                 return BadRequest();
@@ -27,5 +27,15 @@ namespace Lab2.Server.Controllers
             return Ok(response);
         }
 
+        [HttpPost("auth")]
+        public IActionResult Auth([FromBody]AuthRequest authRequests)
+        {
+            var response = _authService.Authenticate(authRequests);
+
+            if (response == null)
+                return BadRequest();
+
+            return Ok(response);
+        }
     }
 }

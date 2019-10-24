@@ -8,7 +8,18 @@
         Title="Lab2.Client" Height="450" Width="400" ResizeMode="NoResize" FontFamily="Gill Sans MT" WindowStyle="SingleBorderWindow">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <StackPanel Height="100" Margin="10,10,10,5" Background="#007241">
+            <StackPanel Orientation="Horizontal" Height="100" Margin="10,10,10,5" Background="#007241">
+                <StackPanel Margin="10,10,5,10" Width="160" Orientation="Vertical" Background="White">
+                    <TextBox Margin="5" Background="#218359" Foreground="White" Text="TestLogin" x:Name="TxtLogin" />
+                    <TextBox Margin="5" Background="#218359" Foreground="White" Text="TestPassword" x:Name="TxtPassword" />
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <Button Margin="0,0,5,0" Background="White" BorderBrush="#007241" Foreground="#007241" HorizontalAlignment="Left" FontWeight="Bold" BorderThickness="2" x:Name="BtnConnect" Click="BtnConnect_Click">
+                            Authorize
+                        </Button>
+                        <TextBlock Foreground="Red" x:Name="AuthStatus" FontWeight="Bold" Text="not authorized"/>
+                    </StackPanel>
+                    
+                </StackPanel>
                 
             </StackPanel>
 

@@ -62,7 +62,7 @@ namespace Lab2.Server
                 };
             });
 
-            services.AddScoped<IClientService, ClientService>();
+            services.AddSingleton<IAuthService, AuthService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
