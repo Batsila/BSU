@@ -26,12 +26,14 @@ namespace Lab2.Server.Services
 
         private readonly AppSettings _appSettings;
 
-        public List<(string, byte[], byte[])> SessionData { get; set; }
+        public List<(string, byte[], byte[], string)> SessionData { get; set; }
+        public string Content { get; set; }
 
         public AuthService(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
-            SessionData = new List<(string, byte[], byte[])>();
+            SessionData = new List<(string, byte[], byte[], string)>();
+            Content = "Here is some data to encrypt!";
         }
 
         public AuthSessionResponse CreateAuthSession(AuthSessionRequest authSessionRequest)
@@ -99,7 +101,7 @@ namespace Lab2.Server.Services
             }
 
             SessionData.RemoveAll(x => x.Item1 == user.Login);
-            var session = (user.Login, sessionKey, sessionIV);
+            var session = (user.Login, sessionKey, sessionIV, string.Empty);
             SessionData.Add(session);
 
             byte[] encryptedSessionKey;

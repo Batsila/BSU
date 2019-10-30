@@ -32,6 +32,8 @@ namespace Lab2.Client
         private byte[] _sessionKey;
         private byte[] _sessionIV;
 
+        private string _garbage = string.Empty;
+
         public MainWindow()
         {
             _client = new HttpClient();
@@ -112,6 +114,8 @@ namespace Lab2.Client
                 AuthStatus.Text = "authorized";
                 AuthStatus.Foreground = new SolidColorBrush(Colors.Green);
             }
+
+            _garbage = string.Empty;
         }
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
@@ -122,10 +126,20 @@ namespace Lab2.Client
                 return;
             }
 
+            var content = new ContentWeb
+            {
+                Garbage = _garbage
+            };
+
+            var json = JsonConvert.SerializeObject(content);
+
+            var message = JsonConvert.SerializeObject(AES.EncryptStringToBytes_Aes(json, _sessionKey, _sessionIV));
+
             var request = new HttpRequestMessage
             {
                 RequestUri = new Uri($"http://localhost:5000/api/content"),
-                Method = HttpMethod.Get,
+                Method = HttpMethod.Post,
+                Content = new StringContent(message, Encoding.UTF8, "application/json")
             };
             request.Headers.Add("Authorization", $"Bearer {_token}");
 
@@ -133,21 +147,68 @@ namespace Lab2.Client
 
             if (!response.IsSuccessStatusCode)
             {
-                EncryptedText.Text = string.Empty;
+                EncryptedMessage.Text = string.Empty;
                 DecryptedText.Text = string.Empty;
                 MessageBox.Show("Can not get content");
                 return;
             }
 
-            var contentResponse = JsonConvert.DeserializeObject<ContentResponse>(response.Content.ReadAsStringAsync().Result);
+            message = response.Content.ReadAsStringAsync().Result;
+            var r = JsonConvert.DeserializeObject<ContentResponse>(message);
 
-            var encryptedText = Encoding.Default.GetString(contentResponse.EncryptedText);
+            var responseStr = AES.DecryptStringFromBytes_Aes(r.Data, _sessionKey, _sessionIV);
 
-            EncryptedText.Text = encryptedText;
+            var contentWeb = JsonConvert.DeserializeObject<ContentWeb>(responseStr);
 
-            var decryptedText = AES.DecryptStringFromBytes_Aes(contentResponse.EncryptedText, _sessionKey, _sessionIV);
+            EncryptedMessage.Text = message;
 
-            DecryptedText.Text = decryptedText;
+            DecryptedText.Text = contentWeb.Data;
+
+            _garbage = contentWeb.Garbage;
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_token))
+            {
+                MessageBox.Show("Not Authorized");
+                return;
+            }
+
+            var content = new ContentWeb
+            {
+                Garbage = _garbage,
+                Data = InputText.Text
+            };
+
+            var json = JsonConvert.SerializeObject(content);
+
+            var message = JsonConvert.SerializeObject(AES.EncryptStringToBytes_Aes(json, _sessionKey, _sessionIV));
+
+            var request = new HttpRequestMessage
+            {
+                RequestUri = new Uri($"http://localhost:5000/api/content"),
+                Method = HttpMethod.Patch,
+                Content = new StringContent(message, Encoding.UTF8, "application/json")
+            };
+            request.Headers.Add("Authorization", $"Bearer {_token}");
+
+            HttpResponseMessage response = _client.SendAsync(request).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Can not save content");
+                return;
+            }
+
+            message = response.Content.ReadAsStringAsync().Result;
+            var r = JsonConvert.DeserializeObject<ContentResponse>(message);
+
+            var responseStr = AES.DecryptStringFromBytes_Aes(r.Data, _sessionKey, _sessionIV);
+
+            var contentWeb = JsonConvert.DeserializeObject<ContentWeb>(responseStr);
+
+            _garbage = contentWeb.Garbage;
         }
     }
 }

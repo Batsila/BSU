@@ -2,6 +2,11 @@
 {
     public class ContentResponse
     {
-        public byte[] EncryptedText { get; set; }
+        public ContentResponse(byte[] data)
+        {
+            Data = data;
+        }
+
+        public byte[] Data { get; set; }
     }
 }

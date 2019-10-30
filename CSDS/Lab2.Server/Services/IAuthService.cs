@@ -7,6 +7,7 @@ namespace Lab2.Server.Services
     {
         AuthSessionResponse CreateAuthSession(AuthSessionRequest authSessionRequest);
         AuthResponse Authenticate(AuthRequest authRequest);
-        List<(string, byte[], byte[])> SessionData { get; set; }
+        List<(string, byte[], byte[], string)> SessionData { get; set; }
+        string Content { get; set; }
     }
 }
