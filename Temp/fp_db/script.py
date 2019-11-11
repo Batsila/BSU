@@ -69,7 +69,7 @@ def main():
         line = input_file.readline()
         cnt = 1
         while line:
-            print('Uri {} in 9779: {}'.format(cnt, line.strip()))
+            print('Uri {}: {}'.format(cnt, line.strip()))
             smi_id_arr = load_from_zinc(line.replace('\n', ''))
             if smi_id_arr is not None:
                 inserted, duplicated = fill_db(smi_id_arr[1:])
