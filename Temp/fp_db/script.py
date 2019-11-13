@@ -70,14 +70,18 @@ def main():
         cnt = 1
         while line:
             print('Uri {}: {}'.format(cnt, line.strip()))
+            log_file = open('D:/BSU/Temp/fp_db/log.txt', 'a')
+            log_file.write('Uri {}: {}'.format(cnt, line.strip()))
             smi_id_arr = load_from_zinc(line.replace('\n', ''))
             if smi_id_arr is not None:
                 inserted, duplicated = fill_db(smi_id_arr[1:])
                 print('Inserted: {}; Duplicated: {}'.format(inserted, duplicated))
+                log_file.write('Inserted: {}; Duplicated: {}\n'.format(inserted, duplicated))
                 total_inserted += inserted
                 total_duplicated += duplicated
             line = input_file.readline()
             cnt += 1
+            log_file.close()
     print('Total inserted: {}; Total duplicated: {}'.format(total_inserted, total_duplicated))
 
 
