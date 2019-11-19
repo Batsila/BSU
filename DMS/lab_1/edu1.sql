@@ -131,7 +131,7 @@ commit;
 /******************************************************/
 /*         премия                     */ 
 /******************************************************/
-create table bonus (empno integer references emp(empno) not null, month smallint check(month>0 and month<13), year integer check(year>2013 and year<2019), bonvalue real);
+create table bonus (empno integer references emp(empno) not null, month smallint check(month>0 and month<13), year integer check(year>2013 and year<2020), bonvalue real);
 commit;
 insert into bonus values (505, 1, 2014, 500);
 insert into bonus values (505, 2, 2014, 500);
