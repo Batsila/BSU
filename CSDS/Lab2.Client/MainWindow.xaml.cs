@@ -3,22 +3,12 @@ using Lab2.Common.Models;
 using Lab2.Common.Security;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lab2.Client
 {
@@ -75,10 +65,18 @@ namespace Lab2.Client
                 Login = TxtLogin.Text
             };
 
+            var keyString = string.Empty;
+            var keyInputDialog = new KeyInputDialog();
+            if (keyInputDialog.ShowDialog() == true)
+            {
+                keyString = keyInputDialog.Key;
+            }
+
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
                 RSA.ImportParameters(authSessionResponse.PublicRSAParameters.ToRSAParameters());
                 authRequest.EncryptedPassword = RSA.Encrypt(Encoding.Default.GetBytes(TxtPassword.Text), false);
+                authRequest.EncryptedTelegramKey = RSA.Encrypt(Encoding.Default.GetBytes(keyString), false);
             }
 
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())

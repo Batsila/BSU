@@ -12,6 +12,9 @@ namespace Lab2.Common.Models
         public byte[] EncryptedPassword { get; set; }
 
         [Required]
+        public byte[] EncryptedTelegramKey { get; set; }
+
+        [Required]
         public PublicRSAParameters ClientPublicRSAParameters { get; set; }
     }
 }

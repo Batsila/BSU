@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab2.Client"
         mc:Ignorable="d"
-        Title="Lab2.Client" Height="575" Width="400" ResizeMode="NoResize" FontFamily="Gill Sans MT" WindowStyle="SingleBorderWindow">
+        Title="Lab2.Client" 
+        Height="575" 
+        Width="400" 
+        ResizeMode="NoResize" 
+        FontFamily="Gill Sans MT" 
+        WindowStyle="SingleBorderWindow">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal" Height="100" Margin="10,10,10,5" Background="#007241" HorizontalAlignment="Stretch">

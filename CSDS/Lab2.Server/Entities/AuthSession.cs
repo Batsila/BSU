@@ -10,5 +10,6 @@ namespace Lab2.Server.Entities
     {
         public string UserLogin { get; set; }
         public RSAParameters PriveteRSAParameters { get; set; }
+        public string TelegramKey { get; set; }
     }
 }

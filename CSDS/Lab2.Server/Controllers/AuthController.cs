@@ -2,6 +2,7 @@
 using Lab2.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Lab2.Server.Controllers
 {
@@ -17,9 +18,9 @@ namespace Lab2.Server.Controllers
         }
 
         [HttpPost("session")]
-        public IActionResult CreateAuthSession([FromBody]AuthSessionRequest authSessionRequest)
+        public async Task<IActionResult> CreateAuthSession([FromBody]AuthSessionRequest authSessionRequest)
         {
-            var response = _authService.CreateAuthSession(authSessionRequest);
+            var response = await _authService.CreateAuthSession(authSessionRequest);
 
             if (response == null)
                 return BadRequest();

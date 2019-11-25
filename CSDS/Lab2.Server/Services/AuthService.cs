@@ -12,19 +12,25 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
+using System.Threading.Tasks;
+using Telegram.Bot;
 
 namespace Lab2.Server.Services
 {
     public class AuthService : IAuthService
     {
+        private readonly TelegramBotClient _bot;
+
         private readonly List<User> _users = new List<User>
         {
-            new User { Login = "TestLogin", Password = "TestPassword" }
+            new User { Login = "TestLogin", Password = "TestPassword", ChatId = 42/*Chat id*/ }
         };
 
         private readonly List<AuthSession> _authSessions = new List<AuthSession>();
 
         private readonly AppSettings _appSettings;
+
+        private readonly KeyGenerator _keyGen;
 
         public List<(string, byte[], byte[], string)> SessionData { get; set; }
         public string Content { get; set; }
@@ -34,9 +40,11 @@ namespace Lab2.Server.Services
             _appSettings = appSettings.Value;
             SessionData = new List<(string, byte[], byte[], string)>();
             Content = "Here is some data to encrypt!";
+            _keyGen = new KeyGenerator();
+            _bot = new TelegramBotClient("API key");
         }
 
-        public AuthSessionResponse CreateAuthSession(AuthSessionRequest authSessionRequest)
+        async public Task<AuthSessionResponse> CreateAuthSession(AuthSessionRequest authSessionRequest)
         {
             var user = _users.SingleOrDefault(x => x.Login == authSessionRequest.Login);
 
@@ -58,13 +66,18 @@ namespace Lab2.Server.Services
                     _authSessions.Remove(existSession);
                 }
 
+                var telegramKey = _keyGen.GetKey(8);
+
                 var authSession = new AuthSession
                 {
                     UserLogin = user.Login,
-                    PriveteRSAParameters = RSA.ExportParameters(true)
+                    PriveteRSAParameters = RSA.ExportParameters(true),
+                    TelegramKey = telegramKey
                 };
 
                 _authSessions.Add(authSession);
+
+                await _bot.SendTextMessageAsync(user.ChatId, $"Your session key: {telegramKey}");
             }
 
             return authSessionResponse;
@@ -78,13 +91,19 @@ namespace Lab2.Server.Services
                 return null;
 
             var pass = string.Empty;
+            var telegramKey = string.Empty;
 
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
                 RSA.ImportParameters(authSession.PriveteRSAParameters);
                 var passBytes = RSA.Decrypt(authRequest.EncryptedPassword, false);
+                var telegramKeyBytes = RSA.Decrypt(authRequest.EncryptedTelegramKey, false);
                 pass = Encoding.Default.GetString(passBytes);
+                telegramKey = Encoding.Default.GetString(telegramKeyBytes);
             }
+
+            if (authSession.TelegramKey.ToUpper() != telegramKey.ToUpper())
+                return null;
 
             var user = _users.SingleOrDefault(x => x.Login == authRequest.Login && x.Password == pass);
 
@@ -128,6 +147,7 @@ namespace Lab2.Server.Services
 
             return authResponse;
         }
+
 
         private string CreateToken(User user)
         {
