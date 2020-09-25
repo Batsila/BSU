@@ -42,6 +42,3 @@ CREATE TABLE [dbo].[drug_like]
 ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 CREATE NONCLUSTERED INDEX [IX_drug_like_fp] ON [drug_like]([fp]);
-
-INSERT INTO [dbo].[drug_like] VALUES('test', 'test', 0x0);
-
